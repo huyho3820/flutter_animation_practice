@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animation_practice/background_animation/background_animation_two.dart';
 import 'package:flutter_animation_practice/demo/animated_widget_clipper.dart';
+import 'package:flutter_animation_practice/demo/animation_splash_screen.dart';
 import 'package:flutter_animation_practice/demo/demo_mini_game.dart';
 import 'package:flutter_animation_practice/icon_animations/controllable_heart_beat.dart';
 import 'package:flutter_animation_practice/loop_animations/ripple_animation.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: buildDemoWidget(),
+      home: const LottieAnimationSplashScreen(),
     );
   }
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class ControllableHeartBeat extends StatefulWidget {
@@ -29,16 +27,18 @@ class _ControllableHeartBeatState extends State<ControllableHeartBeat>
         reverseCurve: Curves.bounceInOut));
 
     _heartAnimationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        log("The animation is stopped at the end.");
-        _heartAnimationController.reverse();
-        log("The animation reversed");
-      } else if (status == AnimationStatus.dismissed) {
-        log("The animation is stopped at the beginning.");
-        _heartAnimationController.forward();
-        log("The animation forwaded");
-      }
+      // if (status == AnimationStatus.completed) {
+      //   log("The animation is stopped at the end.");
+      //   _heartAnimationController.reverse();
+      //   log("The animation reversed");
+      // } else if (status == AnimationStatus.dismissed) {
+      //   log("The animation is stopped at the beginning.");
+      //   _heartAnimationController.forward();
+      //   log("The animation forwaded");
+      // }
     });
+
+    _heartAnimationController.repeat(reverse: true);
     super.initState();
   }
 
@@ -74,7 +74,13 @@ class _ControllableHeartBeatState extends State<ControllableHeartBeat>
                       child: const Text('Start beating')),
                   ElevatedButton(
                       onPressed: () => _heartAnimationController.stop(),
-                      child: const Text('Stop beating'))
+                      child: const Text('Stop beating')),
+                  ElevatedButton(
+                      onPressed: () => _heartAnimationController.reset(),
+                      child: const Text('Animation reset')),
+                  ElevatedButton(
+                      onPressed: () => _heartAnimationController.animateTo(0),
+                      child: const Text('Animate to'))
                 ],
               )
             ],

@@ -20,6 +20,7 @@ class _MiniGameState extends State<MiniGame>
   late double heightScreen;
   bool isFirstTime = true;
   bool isDraggable = true;
+  String idBusted = "";
 
   List<Map<String, dynamic>> currentList = [];
 
@@ -32,6 +33,8 @@ class _MiniGameState extends State<MiniGame>
 
   final keywordTextStyle = const TextStyle(
       color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18);
+  final bustedKeywordTextStyle = const TextStyle(
+      color: Colors.red, fontWeight: FontWeight.bold, fontSize: 18);
 
   List<String> sampleKeywords = [
     'Đụt',
@@ -164,7 +167,12 @@ class _MiniGameState extends State<MiniGame>
                       item['leftPosition'],
                       item['topPosition'],
                     ),
-                    end: Offset(left, top)),
+                    end: isDraggable
+                        ? Offset(left, top)
+                        : Offset(
+                            item['leftPosition'],
+                            item['topPosition'],
+                          )),
                 duration: const Duration(seconds: 2),
                 builder: (context, currentOffset, child) {
                   int index = currentList
@@ -177,7 +185,9 @@ class _MiniGameState extends State<MiniGame>
                       left: item['leftPosition'],
                       child: Text(
                         '${item['keyword']}',
-                        style: keywordTextStyle,
+                        style: idBusted == item['id']
+                            ? bustedKeywordTextStyle
+                            : keywordTextStyle,
                       ));
                 });
           }).toList(),
@@ -284,6 +294,7 @@ class _MiniGameState extends State<MiniGame>
         maxLines: 1,
         textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: double.infinity);
+
     return textPainter.size;
   }
 
@@ -301,10 +312,10 @@ class _MiniGameState extends State<MiniGame>
       final currentDyKeyword = keyword['topPosition'];
       final currentKeywordWidth = keyword['widthText'];
       final currentKeywordHeight = keyword['heightText'];
-      final collide = (minDx < currentDxKeyword + currentKeywordWidth &&
+      final collide = (minDx < currentDxKeyword + currentKeywordWidth - 5 &&
           maxDx > currentDxKeyword &&
-          minDy < currentDyKeyword + currentKeywordHeight &&
-          maxDy > currentDyKeyword);
+          minDy < currentDyKeyword + currentKeywordHeight - 2 &&
+          maxDy > currentDyKeyword + 6);
       if (collide) {
         showDialog(
           context: context,
@@ -318,6 +329,7 @@ class _MiniGameState extends State<MiniGame>
           rebuildTimer.cancel();
           playTimeTimer.cancel();
           isDraggable = false;
+          idBusted = keyword['id'];
         });
         break;
       }

@@ -48,6 +48,8 @@ dependencies:
   animated_text_kit: ^4.2.2
   marquee: ^2.2.3
   page_transition: ^2.0.9
+  rive: ^0.8.1
+  lottie: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +78,12 @@ flutter:
     - assets/images/milky-way.jpeg
     - assets/images/ufo.png
     - assets/images/nhanduong.png
+    - assets/rive/composer.riv
+    - assets/rive/fire.riv
+    - assets/rive/land.riv
+    - assets/rive/mediation.riv
+    - assets/rive/profile.riv
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

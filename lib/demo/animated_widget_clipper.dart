@@ -37,6 +37,7 @@ class _AnimatedWidgetClipperState extends State<AnimatedWidgetClipper>
         children: <Widget>[
           starsBackground,
           BeamTransition(animation: _animation),
+          CustomAnimatedBuilder(animation: _animation),
           ufo,
         ],
       ),
@@ -47,6 +48,24 @@ class _AnimatedWidgetClipperState extends State<AnimatedWidgetClipper>
   void dispose() {
     _animation.dispose();
     super.dispose();
+  }
+}
+
+class CustomAnimatedBuilder extends StatelessWidget {
+  const CustomAnimatedBuilder({
+    Key? key,
+    required AnimationController animation,
+  })  : _animation = animation,
+        super(key: key);
+
+  final AnimationController _animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) => const Text(''),
+    );
   }
 }
 
